@@ -1,0 +1,11 @@
+import sqlite3
+
+conn = sqlite3.connect("database/medmentor.db")
+cursor = conn.cursor()
+
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+tables = cursor.fetchall()
+
+print("Tables created:", [t[0] for t in tables])
+
+conn.close()    

@@ -1,0 +1,124 @@
+{
+  "difficulty": "easy",
+  "metadata": {
+    "patient_id": "DIA_003",
+    "created_by": "synthetic_generator_v1",
+    "disease": "Diabetes Mellitus (Type 2)",
+    "version": "v1.0",
+    "created_on": "2025-11-02"
+  },
+  "demographics": {
+    "age": 62,
+    "gender": "Male",
+    "occupation": "Farmer",
+    "location": "Rural",
+    "marital_status": "Married",
+    "education_level": "Primary School"
+  },
+  "medical_history": {
+    "duration_of_symptoms": "3 years",
+    "previous_conditions": [
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "past_surgeries": [],
+    "known_allergies": [],
+    "childhood_illnesses": [
+      "Measles"
+    ],
+    "current_medications": [
+      "Amlodipine"
+    ],
+    "past_medications": [],
+    "hospitalizations": "None"
+  },
+  "family_history": {
+    "family_diabetes": "Brother",
+    "family_heart_disease": "Father",
+    "family_obesity": "None",
+    "other_conditions": "None"
+  },
+  "symptoms": {
+    "polyuria": true,
+    "polydipsia": true,
+    "polyphagia": false,
+    "fatigue": true,
+    "blurred_vision": true,
+    "weight_loss": true,
+    "slow_healing_wounds": true,
+    "tingling_feet": true,
+    "recurrent_infections": false
+  },
+  "lifestyle": {
+    "diet_type": "High in carbohydrates, low vegetables",
+    "exercise_frequency": "Daily (physical labor)",
+    "sleep_pattern": "Early to bed, early to rise",
+    "stress_level": "Low",
+    "smoking_status": "Occasional",
+    "alcohol_consumption": "None",
+    "work_activity_level": "Physically active"
+  },
+  "socioeconomic_factors": {
+    "income_level": "Moderate",
+    "access_to_healthcare": "Limited (rural clinic)",
+    "living_conditions": "Rural home with family"
+  },
+  "vital_signs": {
+    "height_cm": 172,
+    "weight_kg": 83,
+    "bmi": 28.0,
+    "blood_pressure": "145/92",
+    "pulse_rate": 78,
+    "temperature_celsius": 36.9
+  },
+  "physical_examination": {
+    "skin_condition": "Dry skin, minor cracks on heels",
+    "foot_examination_findings": "Reduced sensation on soles",
+    "vision_assessment": "Blurred",
+    "neurological_signs": "Mild peripheral neuropathy"
+  },
+  "lab_tests": {
+    "fasting_glucose_mg_dl": 190,
+    "random_glucose_mg_dl": 260,
+    "postprandial_glucose_mg_dl": 275,
+    "hba1c_percent": 9.1,
+    "cholesterol_mg_dl": 230,
+    "triglycerides_mg_dl": 195,
+    "urine_sugar": "Positive",
+    "serum_creatinine_mg_dl": 1.0,
+    "ogtt_result_mg_dl": 215
+  },
+  "diabetes_classification": {
+    "diabetes_type": "Type 2 Diabetes Mellitus",
+    "diagnosis_year": "2023",
+    "diagnosis_method": "Random Blood Sugar Test + HbA1c",
+    "family_history_diabetes": "Brother"
+  },
+  "glycemic_monitoring": {
+    "average_fasting_glucose": 185,
+    "average_postprandial_glucose": 260,
+    "hypoglycemic_episodes_per_week": 0
+  },
+  "behavioral_routines": {
+    "meal_timing_regular": true,
+    "water_intake_per_day": "2.5 liters",
+    "sleep_duration_hours": 7
+  },
+  "co_morbid_conditions": {
+    "hypertension_present": true,
+    "obesity_present": false,
+    "thyroid_disorder_present": false,
+    "heart_disease_present": false
+  },
+  "complications_diagnostic_stage": {
+    "neuropathy_symptoms": true,
+    "retinopathy_symptoms": true,
+    "nephropathy_signs": false,
+    "foot_ulcers_present": false
+  },
+  "emotional_state_placeholder": {
+    "tone": "calm",
+    "mood_variability": "low",
+    "cooperation_level": "high"
+  }
+}

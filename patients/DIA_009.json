@@ -1,0 +1,127 @@
+{
+  "difficulty": "hard",
+  "metadata": {
+    "patient_id": "DIA_009",
+    "created_by": "synthetic_generator_v1",
+    "disease": "Diabetes Mellitus (Type 1)",
+    "version": "v1.0",
+    "created_on": "2025-11-02"
+  },
+  "demographics": {
+    "age": 28,
+    "gender": "Female",
+    "occupation": "Teacher",
+    "location": "Urban",
+    "marital_status": "Single",
+    "education_level": "Bachelor\u2019s Degree"
+  },
+  "medical_history": {
+    "duration_of_symptoms": "8 years",
+    "previous_conditions": [],
+    "past_surgeries": [
+      "Appendectomy (2019)"
+    ],
+    "known_allergies": [
+      "Penicillin"
+    ],
+    "childhood_illnesses": [
+      "Mumps"
+    ],
+    "current_medications": [
+      "Insulin (Basal-Bolus regimen)"
+    ],
+    "past_medications": [
+      "Metformin (discontinued after diagnosis confirmation)"
+    ],
+    "hospitalizations": "One episode of diabetic ketoacidosis in 2021"
+  },
+  "family_history": {
+    "family_diabetes": "Mother (Type 1)",
+    "family_heart_disease": "None",
+    "family_obesity": "None",
+    "other_conditions": "Maternal thyroid disorder"
+  },
+  "symptoms": {
+    "polyuria": true,
+    "polydipsia": true,
+    "polyphagia": true,
+    "fatigue": true,
+    "blurred_vision": true,
+    "weight_loss": true,
+    "slow_healing_wounds": false,
+    "tingling_feet": false,
+    "recurrent_infections": false
+  },
+  "lifestyle": {
+    "diet_type": "Balanced diet (moderate carbs, low sugar)",
+    "exercise_frequency": "Light jog 3 times a week",
+    "sleep_pattern": "Regular, 7\u20138 hours",
+    "stress_level": "Mild",
+    "smoking_status": "Non-smoker",
+    "alcohol_consumption": "Occasional (social)",
+    "work_activity_level": "Moderate"
+  },
+  "socioeconomic_factors": {
+    "income_level": "Middle",
+    "access_to_healthcare": "Good",
+    "living_conditions": "Comfortable apartment in city"
+  },
+  "vital_signs": {
+    "height_cm": 165,
+    "weight_kg": 58,
+    "bmi": 21.3,
+    "blood_pressure": "118/75",
+    "pulse_rate": 80,
+    "temperature_celsius": 36.7
+  },
+  "physical_examination": {
+    "skin_condition": "Normal",
+    "foot_examination_findings": "No ulcers, normal sensation",
+    "vision_assessment": "Clear",
+    "neurological_signs": "Normal reflexes"
+  },
+  "lab_tests": {
+    "fasting_glucose_mg_dl": 160,
+    "random_glucose_mg_dl": 240,
+    "postprandial_glucose_mg_dl": 250,
+    "hba1c_percent": 8.2,
+    "cholesterol_mg_dl": 190,
+    "triglycerides_mg_dl": 130,
+    "urine_sugar": "Positive",
+    "serum_creatinine_mg_dl": 0.8,
+    "ogtt_result_mg_dl": 230
+  },
+  "diabetes_classification": {
+    "diabetes_type": "Type 1 Diabetes Mellitus",
+    "diagnosis_year": "2017",
+    "diagnosis_method": "Fasting Blood Sugar + Autoantibody Test",
+    "family_history_diabetes": "Mother"
+  },
+  "glycemic_monitoring": {
+    "average_fasting_glucose": 150,
+    "average_postprandial_glucose": 210,
+    "hypoglycemic_episodes_per_week": 2
+  },
+  "behavioral_routines": {
+    "meal_timing_regular": true,
+    "water_intake_per_day": "2 liters",
+    "sleep_duration_hours": 7.5
+  },
+  "co_morbid_conditions": {
+    "hypertension_present": false,
+    "obesity_present": false,
+    "thyroid_disorder_present": true,
+    "heart_disease_present": false
+  },
+  "complications_diagnostic_stage": {
+    "neuropathy_symptoms": false,
+    "retinopathy_symptoms": false,
+    "nephropathy_signs": false,
+    "foot_ulcers_present": false
+  },
+  "emotional_state_placeholder": {
+    "tone": "calm and cooperative",
+    "mood_variability": "stable",
+    "cooperation_level": "high"
+  }
+}
