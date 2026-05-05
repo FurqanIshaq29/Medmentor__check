@@ -1,0 +1,132 @@
+{
+  "difficulty": "medium",
+  "metadata": {
+    "patient_id": "DIA_004",
+    "created_by": "synthetic_generator_v1",
+    "disease": "Diabetes Mellitus (Type 2)",
+    "version": "v1.0",
+    "created_on": "2025-11-02"
+  },
+  "demographics": {
+    "name": "Zunera",
+    "age": 49,
+    "gender": "Female",
+    "occupation": "School Teacher",
+    "location": "Urban",
+    "marital_status": "Married",
+    "education_level": "Bachelor\u2019s Degree"
+  },
+  "medical_history": {
+    "duration_of_symptoms": "5 years",
+    "previous_conditions": [
+      "Hypertension",
+      "High Cholesterol"
+    ],
+    "past_surgeries": [
+      "Gallbladder removal (Cholecystectomy)"
+    ],
+    "known_allergies": [
+      "Penicillin"
+    ],
+    "childhood_illnesses": [
+      "Chickenpox"
+    ],
+    "current_medications": [
+      "Metformin",
+      "Atorvastatin"
+    ],
+    "past_medications": [
+      "Gliclazide"
+    ],
+    "hospitalizations": "Once (for blood pressure crisis)"
+  },
+  "family_history": {
+    "family_diabetes": "Mother",
+    "family_heart_disease": "Grandfather",
+    "family_obesity": "Sister",
+    "other_conditions": "None"
+  },
+  "symptoms": {
+    "polyuria": true,
+    "polydipsia": true,
+    "polyphagia": true,
+    "fatigue": true,
+    "blurred_vision": false,
+    "weight_loss": false,
+    "slow_healing_wounds": true,
+    "tingling_feet": true,
+    "recurrent_infections": true
+  },
+  "lifestyle": {
+    "diet_type": "Mixed diet with occasional sweets",
+    "exercise_frequency": "Low (sedentary work)",
+    "sleep_pattern": "Irregular sleep hours due to stress",
+    "stress_level": "High",
+    "smoking_status": "Non-smoker",
+    "alcohol_consumption": "Occasional (social events)",
+    "work_activity_level": "Moderate"
+  },
+  "socioeconomic_factors": {
+    "income_level": "Middle",
+    "access_to_healthcare": "Good",
+    "living_conditions": "Apartment in city"
+  },
+  "vital_signs": {
+    "height_cm": 160,
+    "weight_kg": 80,
+    "bmi": 31.2,
+    "blood_pressure": "150/95",
+    "pulse_rate": 86,
+    "temperature_celsius": 36.7
+  },
+  "physical_examination": {
+    "skin_condition": "Normal with mild dryness",
+    "foot_examination_findings": "Mild loss of sensation at toes",
+    "vision_assessment": "Normal with glasses",
+    "neurological_signs": "Mild peripheral neuropathy"
+  },
+  "lab_tests": {
+    "fasting_glucose_mg_dl": 170,
+    "random_glucose_mg_dl": 245,
+    "postprandial_glucose_mg_dl": 260,
+    "hba1c_percent": 8.5,
+    "cholesterol_mg_dl": 230,
+    "triglycerides_mg_dl": 190,
+    "urine_sugar": "Positive",
+    "serum_creatinine_mg_dl": 1.0,
+    "ogtt_result_mg_dl": 210
+  },
+  "diabetes_classification": {
+    "diabetes_type": "Type 2 Diabetes Mellitus",
+    "diagnosis_year": "2020",
+    "diagnosis_method": "Fasting Blood Sugar + HbA1c",
+    "family_history_diabetes": "Mother"
+  },
+  "glycemic_monitoring": {
+    "average_fasting_glucose": 165,
+    "average_postprandial_glucose": 240,
+    "hypoglycemic_episodes_per_week": 1
+  },
+  "behavioral_routines": {
+    "meal_timing_regular": false,
+    "water_intake_per_day": "1.8 liters",
+    "sleep_duration_hours": 6
+  },
+  "co_morbid_conditions": {
+    "hypertension_present": true,
+    "obesity_present": true,
+    "thyroid_disorder_present": false,
+    "heart_disease_present": false
+  },
+  "complications_diagnostic_stage": {
+    "neuropathy_symptoms": true,
+    "retinopathy_symptoms": false,
+    "nephropathy_signs": false,
+    "foot_ulcers_present": false
+  },
+  "emotional_state_placeholder": {
+    "tone": "concerned but cooperative",
+    "mood_variability": "moderate",
+    "cooperation_level": "high"
+  }
+}

@@ -26,7 +26,14 @@ async def send_message(
     patient = load_patient(session.case_id)
     history = get_turns(db, req.session_id)
 
-    reply = await get_patient_response(patient, history, req.message)
+    import asyncio
+
+    reply = await asyncio.to_thread(
+        get_patient_response,
+        patient,
+        history,
+        req.message
+    )
 
     turn = save_turn(db, req.session_id, req.message, reply)
     return ChatMessageResponse(

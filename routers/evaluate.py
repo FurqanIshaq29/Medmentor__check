@@ -33,7 +33,14 @@ async def submit_diagnosis(
         )
 
     patient = load_patient(session.case_id)
-    evaluation = await evaluate_submission(patient, turns, req.dict())
+    import asyncio
+
+    evaluation = await asyncio.to_thread(
+        evaluate_submission,
+        patient,
+        turns,
+        req.dict()
+    )
 
     report = EvaluationReport(
         id=str(uuid.uuid4()),

@@ -1,7 +1,7 @@
 import os
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
 from database.db import init_db
 
 # Import all models so SQLAlchemy registers them before init_db
@@ -41,10 +41,3 @@ def health():
 @app.get("/")
 def root():
     return {"message": "MedMentor Backend Running Successfully"}
-
-
-## for grok api # routers/qrok.py
-@app.post("/qrok/chat")
-async def mock_qrok(data: dict):
-    last = data["messages"][-1]["content"]
-    return {"reply": f"(Mock Patient): {last}"}

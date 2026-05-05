@@ -1,0 +1,129 @@
+{
+  "difficulty": "hard",
+  "metadata": {
+    "patient_id": "DIA_007",
+    "created_by": "synthetic_generator_v1",
+    "disease": "Diabetes Mellitus (Type 1)",
+    "version": "v1.0",
+    "created_on": "2025-11-02"
+  },
+  "demographics": {
+    "name": "Farwa",
+    "age": 35,
+    "gender": "Female",
+    "occupation": "Graphic Designer",
+    "location": "Urban",
+    "marital_status": "Married",
+    "education_level": "Master\u2019s Degree"
+  },
+  "medical_history": {
+    "duration_of_symptoms": "10 years",
+    "previous_conditions": [
+      "Celiac Disease"
+    ],
+    "past_surgeries": [],
+    "known_allergies": [
+      "Gluten"
+    ],
+    "childhood_illnesses": [
+      "None"
+    ],
+    "current_medications": [
+      "Insulin pump (CSII)",
+      "Vitamin D supplement"
+    ],
+    "past_medications": [
+      "Multiple daily injections before pump therapy"
+    ],
+    "hospitalizations": "Twice (mild DKA episodes)"
+  },
+  "family_history": {
+    "family_diabetes": "Uncle (Type 1)",
+    "family_heart_disease": "None",
+    "family_obesity": "None",
+    "other_conditions": "Celiac disease (mother)"
+  },
+  "symptoms": {
+    "polyuria": true,
+    "polydipsia": true,
+    "polyphagia": false,
+    "fatigue": true,
+    "blurred_vision": false,
+    "weight_loss": false,
+    "slow_healing_wounds": false,
+    "tingling_feet": false,
+    "recurrent_infections": false
+  },
+  "lifestyle": {
+    "diet_type": "Gluten-free balanced diet",
+    "exercise_frequency": "Moderate (yoga and walking)",
+    "sleep_pattern": "Regular",
+    "stress_level": "Moderate",
+    "smoking_status": "Non-smoker",
+    "alcohol_consumption": "Rare",
+    "work_activity_level": "Sedentary"
+  },
+  "socioeconomic_factors": {
+    "income_level": "Upper middle",
+    "access_to_healthcare": "Excellent",
+    "living_conditions": "Owns apartment with good facilities"
+  },
+  "vital_signs": {
+    "height_cm": 165,
+    "weight_kg": 60,
+    "bmi": 22.0,
+    "blood_pressure": "120/78",
+    "pulse_rate": 80,
+    "temperature_celsius": 36.6
+  },
+  "physical_examination": {
+    "skin_condition": "Normal",
+    "foot_examination_findings": "Normal",
+    "vision_assessment": "Normal (uses corrective lenses)",
+    "neurological_signs": "Normal"
+  },
+  "lab_tests": {
+    "fasting_glucose_mg_dl": 155,
+    "random_glucose_mg_dl": 220,
+    "postprandial_glucose_mg_dl": 230,
+    "hba1c_percent": 7.6,
+    "cholesterol_mg_dl": 175,
+    "triglycerides_mg_dl": 120,
+    "urine_sugar": "Trace",
+    "serum_creatinine_mg_dl": 0.9,
+    "ogtt_result_mg_dl": 210
+  },
+  "diabetes_classification": {
+    "diabetes_type": "Type 1 Diabetes Mellitus",
+    "diagnosis_year": "2015",
+    "diagnosis_method": "Fasting glucose + autoantibody panel",
+    "family_history_diabetes": "Uncle"
+  },
+  "glycemic_monitoring": {
+    "average_fasting_glucose": 150,
+    "average_postprandial_glucose": 210,
+    "hypoglycemic_episodes_per_week": 3
+  },
+  "behavioral_routines": {
+    "meal_timing_regular": true,
+    "water_intake_per_day": "2 liters",
+    "sleep_duration_hours": 7
+  },
+  "co_morbid_conditions": {
+    "hypertension_present": false,
+    "obesity_present": false,
+    "thyroid_disorder_present": false,
+    "heart_disease_present": false
+  },
+  "complications_diagnostic_stage": {
+    "neuropathy_symptoms": false,
+    "retinopathy_symptoms": false,
+    "nephropathy_signs": false,
+    "foot_ulcers_present": false
+  },
+  "emotional_state_placeholder": {
+    "tone": "calm and proactive",
+    "mood_variability": "low",
+    "cooperation_level": "very high"
+  }
+}

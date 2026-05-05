@@ -1,0 +1,38 @@
+### Health Check
+GET http://localhost:8000/health
+
+###
+### Get cases (JWT required)
+GET http://localhost:8000/cases/list
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0LXN0dWRlbnQtaWQtMDAxIiwiZW1haWwiOiJ0ZXN0QG1lZG1lbnRvci5jb20iLCJleHAiOjE3Nzc4MTAyNTR9.FTdkP7_3Sk5EuJQLf_l3EKXMUEKKIm_6m0ITZP63msw
+###
+### Start session (JWT required)
+POST http://localhost:8000/cases/start
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0LXN0dWRlbnQtaWQtMDAxIiwiZW1haWwiOiJ0ZXN0QG1lZG1lbnRvci5jb20iLCJleHAiOjE3Nzc4MTAyNTR9.FTdkP7_3Sk5EuJQLf_l3EKXMUEKKIm_6m0ITZP63msw
+
+{
+  "case_id": "DIA_001"
+}
+
+###
+### Chat (JWT + real session_id)
+POST http://localhost:8000/chat/message
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0LXN0dWRlbnQtaWQtMDAxIiwiZW1haWwiOiJ0ZXN0QG1lZG1lbnRvci5jb20iLCJleHAiOjE3Nzc4MTAyNTR9.FTdkP7_3Sk5EuJQLf_l3EKXMUEKKIm_6m0ITZP63msw
+
+{
+  "session_id": "PASTE_SESSION_ID_FROM_ABOVE",
+  "message": "Hello, what brings you in today?"
+}
+
+###
+### Direct qrok test (no JWT)
+POST http://localhost:8000/qrok/chat
+Content-Type: application/json
+
+{
+  "messages": [
+    {"role": "user", "content": "Hello"}
+  ]
+}

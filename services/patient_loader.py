@@ -27,6 +27,7 @@ def list_all_cases() -> list[dict]:
             demo = data.get("demographics", {})
             cases.append({
                 "case_id": case_id,
+                "name": demo.get("name", "Unknown"),
                 "age": demo.get("age", 0),
                 "gender": demo.get("gender", "Unknown"),
                 "disease_category": meta.get("disease", "General Medicine"),

@@ -1,0 +1,128 @@
+{
+  "difficulty": "medium",
+  "metadata": {
+    "patient_id": "DIA_002",
+    "created_by": "synthetic_generator_v1",
+    "disease": "Diabetes Mellitus (Type 2)",
+    "version": "v1.0",
+    "created_on": "2025-11-02"
+  },
+  "demographics": {
+    "name": "Alisha",
+    "age": 38,
+    "gender": "Female",
+    "occupation": "Software Engineer",
+    "location": "Urban",
+    "marital_status": "Single",
+    "education_level": "Master\u2019s Degree"
+  },
+  "medical_history": {
+    "duration_of_symptoms": "6 months",
+    "previous_conditions": [
+      "Gestational diabetes (previous pregnancy)"
+    ],
+    "past_surgeries": [
+      "Cesarean section"
+    ],
+    "known_allergies": [
+      "Sulfa drugs"
+    ],
+    "childhood_illnesses": [
+      "Chickenpox"
+    ],
+    "current_medications": [],
+    "past_medications": [
+      "Insulin (during pregnancy)"
+    ],
+    "hospitalizations": "None"
+  },
+  "family_history": {
+    "family_diabetes": "Mother",
+    "family_heart_disease": "Grandfather",
+    "family_obesity": "Mother",
+    "other_conditions": "None"
+  },
+  "symptoms": {
+    "polyuria": true,
+    "polydipsia": true,
+    "polyphagia": true,
+    "fatigue": true,
+    "blurred_vision": false,
+    "weight_loss": false,
+    "slow_healing_wounds": false,
+    "tingling_feet": false,
+    "recurrent_infections": true
+  },
+  "lifestyle": {
+    "diet_type": "High in fast food, low in fiber",
+    "exercise_frequency": "Once a week",
+    "sleep_pattern": "Late-night work hours",
+    "stress_level": "Very high",
+    "smoking_status": "No",
+    "alcohol_consumption": "Occasional",
+    "work_activity_level": "Sedentary"
+  },
+  "socioeconomic_factors": {
+    "income_level": "High",
+    "access_to_healthcare": "Good",
+    "living_conditions": "Apartment in city center"
+  },
+  "vital_signs": {
+    "height_cm": 165,
+    "weight_kg": 77,
+    "bmi": 28.3,
+    "blood_pressure": "130/85",
+    "pulse_rate": 80,
+    "temperature_celsius": 36.7
+  },
+  "physical_examination": {
+    "skin_condition": "Slight dryness",
+    "foot_examination_findings": "Normal sensation",
+    "vision_assessment": "Normal",
+    "neurological_signs": "No abnormalities"
+  },
+  "lab_tests": {
+    "fasting_glucose_mg_dl": 155,
+    "random_glucose_mg_dl": 210,
+    "postprandial_glucose_mg_dl": 230,
+    "hba1c_percent": 7.9,
+    "cholesterol_mg_dl": 190,
+    "triglycerides_mg_dl": 160,
+    "urine_sugar": "Trace",
+    "serum_creatinine_mg_dl": 0.8,
+    "ogtt_result_mg_dl": 198
+  },
+  "diabetes_classification": {
+    "diabetes_type": "Type 2 Diabetes Mellitus",
+    "diagnosis_year": "2025",
+    "diagnosis_method": "Oral Glucose Tolerance Test (OGTT)",
+    "family_history_diabetes": "Mother"
+  },
+  "glycemic_monitoring": {
+    "average_fasting_glucose": 150,
+    "average_postprandial_glucose": 225,
+    "hypoglycemic_episodes_per_week": 0
+  },
+  "behavioral_routines": {
+    "meal_timing_regular": false,
+    "water_intake_per_day": "1.8 liters",
+    "sleep_duration_hours": 5
+  },
+  "co_morbid_conditions": {
+    "hypertension_present": false,
+    "obesity_present": true,
+    "thyroid_disorder_present": false,
+    "heart_disease_present": false
+  },
+  "complications_diagnostic_stage": {
+    "neuropathy_symptoms": false,
+    "retinopathy_symptoms": false,
+    "nephropathy_signs": false,
+    "foot_ulcers_present": false
+  },
+  "emotional_state_placeholder": {
+    "tone": "slightly anxious",
+    "mood_variability": "moderate",
+    "cooperation_level": "high"
+  }
+}
