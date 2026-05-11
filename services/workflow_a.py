@@ -4,8 +4,13 @@ import os
 from openai import OpenAI
 from prompts.patient_system import build_patient_system_prompt
 
+groq_key = os.getenv("GROQ_API_KEY")
+
+if not groq_key:
+    raise ValueError("GROQ_API_KEY is missing")
+
 client = OpenAI(
-    api_key=os.getenv("GROQ_API_KEY"),
+    api_key=groq_key,
     base_url="https://api.groq.com/openai/v1"
 )
 
