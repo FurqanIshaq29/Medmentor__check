@@ -18,7 +18,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",          # local Vite dev server
-        "https://your-app.vercel.app",    # replace with your real Vercel URL later
+        "https://med-mentor-orcin.vercel.app",    # replace with your real Vercel URL later
     ],
     allow_credentials=True,
     allow_methods=["*"],
