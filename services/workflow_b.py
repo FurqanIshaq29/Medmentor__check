@@ -58,36 +58,26 @@ def extract_diabetes_type(text: str):
 
 
 def is_diagnosis_correct(student_answer: str, actual_answer: str):
-    student = student_answer.lower().strip()
-    actual = actual_answer.lower().strip()
+    student = student_answer.lower()
+    actual = actual_answer.lower()
 
-    # Detect diabetes type
-    student_type = None
-    actual_type = None
+    # Extract diabetes type numbers
+    student_has_1 = "1" in student
+    student_has_2 = "2" in student
 
-    # Student answer
-    if "type 1" in student or "type i" in student:
-        student_type = 1
-    elif "type 2" in student or "type ii" in student:
-        student_type = 2
+    actual_has_1 = "1" in actual
+    actual_has_2 = "2" in actual
 
-    # Actual answer
-    if "type 1" in actual or "type i" in actual:
-        actual_type = 1
-    elif "type 2" in actual or "type ii" in actual:
-        actual_type = 2
+    # If actual diagnosis is Type 1
+    if actual_has_1:
+        return student_has_1
 
-    # If both contain diabetes type info
-    if student_type is not None and actual_type is not None:
-        return student_type == actual_type
+    # If actual diagnosis is Type 2
+    if actual_has_2:
+        return student_has_2
 
-    # fallback generic check
-    student_words = set(student.replace("(", "").replace(")", "").split())
-    actual_words = set(actual.replace("(", "").replace(")", "").split())
-
-    common_words = student_words.intersection(actual_words)
-
-    return len(common_words) >= 2
+    # fallback generic text match
+    return student.strip() in actual.strip() or actual.strip() in student.strip()
 
 async def evaluate_submission(patient, turns, submission):
     """
