@@ -109,7 +109,7 @@ async def evaluate_submission(patient, turns, submission):
         result = json.loads(clean)
 
         student_diagnosis = submission.get("suspected_disease", "")
-        correct_diagnosis = patient.get("disease", "")
+        correct_diagnosis = patient.get("metadata", {}).get("disease", "")
 
         diagnosis_correct = is_diagnosis_correct(
             student_diagnosis,
