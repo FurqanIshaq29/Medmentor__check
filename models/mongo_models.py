@@ -1,61 +1,75 @@
-from pydantic import BaseModel, Field
-from typing import Optional, List
 from datetime import datetime
 from bson import ObjectId
 
-# ── ObjectId serialisation helper ───────────────────────────────────
-class PyObjectId(str):
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
+from database.mongo import get_database
+from models.mongo_models import SessionDoc
 
-    @classmethod
-    def validate(cls, v):
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid ObjectId")
-        return str(v)
 
-# ── Students collection ──────────────────────────────────────────────
-class StudentDoc(BaseModel):
-    """Stored in 'students' collection"""
-    google_sub: str          # unique index
-    email: str
-    name: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+async def create_session(student_id: str, case_id: str):
 
-# ── Sessions collection ──────────────────────────────────────────────
-class SessionDoc(BaseModel):
-    """Stored in 'sessions' collection"""
-    student_id: str          # students._id as string
-    case_id: str             # e.g. "DIA_001"
-    status: str = "active"  # active | completed
-    started_at: datetime = Field(default_factory=datetime.utcnow)
-    completed_at: Optional[datetime] = None
+    db = get_database()
 
-# ── Chat turns — embedded in session document ────────────────────────
-class ChatTurn(BaseModel):
-    """Embedded array inside sessions document"""
-    turn_number: int
-    student_message: str
-    patient_response: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    session = SessionDoc(
+        student_id=student_id,
+        case_id=case_id,
+        status="active"
+    )
 
-# ── Evaluations collection ───────────────────────────────────────────
-class EvaluationDoc(BaseModel):
-    """Stored in 'evaluations' collection"""
-    student_id: str
-    session_id: str
-    case_id: str
-    submitted_disease: str
-    submitted_reasoning: str
-    submitted_treatment: str
-    evaluation: dict         # full JSON from Workflow B — stored natively
-    total_score: int
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    result = await db.sessions.insert_one(
+        session.dict()
+    )
 
-# ── Progress — embedded in student document or separate collection ────
-class ProgressEntry(BaseModel):
-    case_id: str
-    attempts: int = 0
-    best_score: int = 0
-    last_attempt: Optional[datetime] = None
+    created_session = await db.sessions.find_one(
+        {"_id": result.inserted_id}
+    )
+
+    created_session["id"] = str(created_session["_id"])
+
+    return created_session
+
+
+async def get_session(session_id: str):
+
+    db = get_database()
+
+    session = await db.sessions.find_one({
+        "_id": ObjectId(session_id)
+    })
+
+    if not session:
+        return None
+
+    session["id"] = str(session["_id"])
+
+    return session
+
+
+async def complete_session(session_id: str):
+
+    db = get_database()
+
+    await db.sessions.update_one(
+        {"_id": ObjectId(session_id)},
+        {
+            "$set": {
+                "status": "completed",
+                "completed_at": datetime.utcnow()
+            }
+        }
+    )
+
+
+async def get_student_sessions(student_id: str):
+
+    db = get_database()
+
+    sessions_cursor = db.sessions.find({
+        "student_id": student_id
+    }).sort("started_at", -1)
+
+    sessions = await sessions_cursor.to_list(length=100)
+
+    for session in sessions:
+        session["id"] = str(session["_id"])
+
+    return sessions
