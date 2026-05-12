@@ -1,81 +1,94 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-from database.db import get_db
-from models.db_models import Student
-from models.schemas import ChatMessageRequest, ChatMessageResponse
+from database.mongo import get_database
 from routers.auth import get_current_student
-from services.session_manager import get_session
 from services.patient_loader import load_patient
-from services.chat_history import save_turn, get_turns
 from services.workflow_a import get_patient_response
+from models.schemas import ChatMessageRequest, ChatMessageResponse
+from datetime import datetime
+from bson import ObjectId
 
 router = APIRouter(prefix="/chat", tags=["chat"])
+
 
 @router.post("/message", response_model=ChatMessageResponse)
 async def send_message(
     req: ChatMessageRequest,
-    student: Student = Depends(get_current_student),
-    db: Session = Depends(get_db)
+    student: dict = Depends(get_current_student)
 ):
-    session = get_session(db, req.session_id)
-    if not session or session.student_id != student.id:
+    db = await get_database()
+
+    # Fetch ONLY required fields
+    session = await db.sessions.find_one(
+        {
+            "_id": ObjectId(req.session_id),
+            "student_id": student["id"]
+        },
+        {
+            "turns": {"$slice": -20},   # last 20 only
+            "turn_count": 1,
+            "status": 1,
+            "case_id": 1
+        }
+    )
+
+    if not session:
         raise HTTPException(status_code=404, detail="Session not found")
-    if session.status == "completed":
-        raise HTTPException(status_code=400, detail="This session is already submitted")
 
-    patient = load_patient(session.case_id)
-    history = get_turns(db, req.session_id)
+    if session["status"] == "completed":
+        raise HTTPException(status_code=400, detail="Session already submitted")
 
-    import asyncio
+    patient = load_patient(session["case_id"])
 
-    reply = await asyncio.to_thread(
-        get_patient_response,
+    # Last 20 turns already returned from MongoDB
+    context_turns = session.get("turns", [])
+
+    # Generate AI response
+    reply = await get_patient_response(
         patient,
-        history,
+        context_turns,
         req.message
     )
 
-    turn = save_turn(db, req.session_id, req.message, reply)
+    turn_number = session["turn_count"] + 1
+
+    new_turn = {
+        "turn_number": turn_number,
+        "student_message": req.message,
+        "patient_response": reply,
+        "created_at": datetime.utcnow()
+    }
+
+    # Atomic update
+    await db.sessions.update_one(
+        {"_id": ObjectId(req.session_id)},
+        {
+            "$push": {"turns": new_turn},
+            "$inc": {"turn_count": 1}
+        }
+    )
+
     return ChatMessageResponse(
         reply=reply,
         session_id=req.session_id,
-        turn_number=turn.turn_number
+        turn_number=turn_number
     )
 
-"""# /chat/message (Workflow A
-# routers/chat.py
 
-@router.post("/chat/message")
-async def send_message(req: ChatMessageRequest, user=Depends(get_current_user)):
-    session = session_manager.get_or_create(user.id, req.case_id)
-    patient = patient_loader.load(req.case_id)
-
-    # Load full conversation history from SQLite
-    history = chat_history.get_turns(session.id)
-
-    # Build messages array — this is the patient memory system
-    messages = []
-    for turn in history:
-        messages.append({"role": "user", "content": turn.student_message})
-        messages.append({"role": "assistant", "content": turn.patient_response})
-
-    # Append the new student message
-    messages.append({"role": "user", "content": req.message})
-
-    response = await anthropic_client.messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=300,           # patients give short answers
-        system=build_patient_system_prompt(patient),
-        messages=messages         # full history = patient remembers everything
+@router.get("/history/{session_id}")
+async def get_history(
+    session_id: str,
+    student: dict = Depends(get_current_student)
+):
+    db = await get_database()
+    # Use projection to return only turns — avoids pulling entire doc
+    session = await db.sessions.find_one(
+        {"_id": ObjectId(session_id), "student_id": student["id"]},
+        {"turns": 1}        
     )
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
 
-    patient_reply = response.content[0].text
-
-    # Persist both sides of the conversation
-    chat_history.save_turn(
-        session_id=session.id,
-        student_message=req.message,
-        patient_response=patient_reply
-    )
-
-    return {"reply": patient_reply, "session_id": session.id}"""
+    return {"turns": [
+        {"student_message": t["student_message"], "patient_response": t["patient_response"]}
+        for t in session.get("turns", [])
+    ]}

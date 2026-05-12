@@ -4,6 +4,7 @@ import os
 import json
 from openai import OpenAI
 from prompts.evaluator_system import EVALUATOR_SYSTEM_PROMPT
+from motor import MotorClient
 
 client = OpenAI(
     api_key=os.getenv("GROQ_API_KEY"),
@@ -13,7 +14,7 @@ client = OpenAI(
 
 def build_evaluation_prompt(patient, turns, submission):
     transcript = "\n".join([
-        f"Student: {t.student_message}\nPatient: {t.patient_response}"
+        f"Student: {t['student_message']}\nPatient: {t['patient_response']}"
         for t in turns
     ])
 
@@ -33,7 +34,7 @@ Return ONLY valid JSON.
 """
 
 
-def evaluate_submission(patient, turns, submission):
+async def evaluate_submission(patient, turns, submission):
     """
     Production evaluator using Groq
     """

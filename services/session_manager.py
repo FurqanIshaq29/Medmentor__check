@@ -16,7 +16,7 @@ def create_session(db: DBSession, student_id: str, case_id: str) -> SessionModel
     return session
 
 def get_session(db: DBSession, session_id: str) -> SessionModel | None:
-    return db.query(SessionModel).filter(SessionModel.id == session_id).first()
+    return db.query(SessionModel).filter(SessionModel.id == session_id).first() 
 
 def complete_session(db: DBSession, session_id: str):
     session = get_session(db, session_id)

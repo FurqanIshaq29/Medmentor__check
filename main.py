@@ -2,23 +2,24 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database.db import init_db
 
-# Import all models so SQLAlchemy registers them before init_db
-import models.db_models  # noqa: F401
+from database.mongo import init_mongo
 
 from routers import auth, cases, chat, evaluate
 
 load_dotenv()
 
-app = FastAPI(title="MedMentor API", version="1.0.0")
+app = FastAPI(
+    title="MedMentor API",
+    version="1.0.0"
+)
 
-# CORS — allows your React frontend to call this backend
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",          # local Vite dev server
-        "https://med-mentor-orcin.vercel.app",    # replace with your real Vercel URL later
+        "http://localhost:5173",
+        "https://med-mentor-orcin.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -26,18 +27,28 @@ app.add_middleware(
 )
 
 @app.on_event("startup")
-def startup():
-    init_db()
+async def startup():
+    await init_mongo()          # replaces init_db()
 
+# Routers
 app.include_router(auth.router)
 app.include_router(cases.router)
 app.include_router(chat.router)
 app.include_router(evaluate.router)
 
+# Health check
 @app.get("/health")
-def health():
-    return {"status": "ok", "version": "1.0.0"}
+async def health():
+    return {
+        "status": "ok",
+        "version": "1.0.0"
+    }
 
+# Root route
 @app.get("/")
-def root():
-    return {"message": "MedMentor Backend Running Successfully"}
+async def root():
+    return {
+        "message": "MedMentor Backend Running Successfully"
+    }
+
+

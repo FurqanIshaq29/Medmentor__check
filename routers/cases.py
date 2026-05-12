@@ -1,24 +1,32 @@
-from fastapi import APIRouter, Depends
-from models.db_models import Student
-from models.schemas import StartSessionRequest, StartSessionResponse
-from routers.auth import get_current_student
+from fastapi import APIRouter, Depends, HTTPException
+from database.mongo import get_database
 from services.patient_loader import list_all_cases, load_patient
-from services.session_manager import create_session
-from database.db import get_db
-from sqlalchemy.orm import Session
+from routers.auth import get_current_student
+from datetime import datetime
+import uuid
 
 router = APIRouter(prefix="/cases", tags=["cases"])
 
 @router.get("/list")
-async def get_cases(student: Student = Depends(get_current_student)):
+async def get_cases(student: dict = Depends(get_current_student)):
     return list_all_cases()
 
-@router.post("/start", response_model=StartSessionResponse)
-async def start_case(
-    req: StartSessionRequest,
-    student: Student = Depends(get_current_student),
-    db: Session = Depends(get_db)
-):
-    load_patient(req.case_id)  # validates case exists — raises 404 if not
-    session = create_session(db, student.id, req.case_id)
-    return StartSessionResponse(session_id=session.id, case_id=req.case_id)
+@router.post("/start")
+async def start_case(req: dict, student: dict = Depends(get_current_student)):
+    case_id = req.get("case_id")
+    load_patient(case_id)  # validates existence
+
+    db = await get_database()
+    session_doc = {
+        "student_id": student["id"],
+        "case_id": case_id,
+        "status": "active",
+        "started_at": datetime.utcnow(),
+        "completed_at": None,
+        "turns": [],            # embedded chat turns array
+        "turn_count": 0
+    }
+    result = await db.sessions.insert_one(session_doc)
+    session_id = str(result.inserted_id)
+
+    return {"session_id": session_id, "case_id": case_id}

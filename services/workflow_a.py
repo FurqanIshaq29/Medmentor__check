@@ -15,15 +15,33 @@ client = OpenAI(
 )
 
 
-def build_messages_from_history(turns):
+# In workflow_a.py
+def build_messages_from_turns(turns: list, new_message: str) -> list:
+    # Use last 20 turns for context — store all in DB
+    context = turns[-20:] if len(turns) > 20 else turns
+
     messages = []
-    for turn in turns:
-        messages.append({"role": "user", "content": turn.student_message})
-        messages.append({"role": "assistant", "content": turn.patient_response})
+    if len(turns) > 20:
+        # Optional: single summarising injection for older context
+        messages.append({
+            "role": "user",
+            "content": f"Earlier in this consultation the student asked about: "
+                      f"{', '.join(t['student_message'][:40] for t in turns[:-20][:5])}"
+        })
+        messages.append({
+            "role": "assistant",
+            "content": "I understand, continuing our conversation."
+        })
+
+    for t in context:
+        messages.append({"role": "user",      "content": t["student_message"]})
+        messages.append({"role": "assistant", "content": t["patient_response"]})
+
+    messages.append({"role": "user", "content": new_message})
     return messages
 
 
-def get_patient_response(patient, history_turns, new_message):
+async def get_patient_response(patient, history_turns, new_message):
     """
     Production Virtual Patient using Groq
     """
@@ -56,8 +74,10 @@ def get_patient_response(patient, history_turns, new_message):
     system_prompt = build_patient_system_prompt(patient)
 
     messages = [{"role": "system", "content": system_prompt}]
-    messages += build_messages_from_history(history_turns)
-    messages.append({"role": "user", "content": new_message})
+    messages += build_messages_from_turns(
+        history_turns,
+        new_message
+        )
 
     try:
         response = client.chat.completions.create(
