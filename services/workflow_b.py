@@ -58,20 +58,36 @@ def extract_diabetes_type(text: str):
 
 
 def is_diagnosis_correct(student_answer: str, actual_answer: str):
-    student = normalize_diagnosis(student_answer)
-    actual = normalize_diagnosis(actual_answer)
+    student = student_answer.lower().strip()
+    actual = actual_answer.lower().strip()
 
-    # Diabetes-specific logic
-    if "diabetes" in student and "diabetes" in actual:
-        student_type = extract_diabetes_type(student)
-        actual_type = extract_diabetes_type(actual)
+    # Detect diabetes type
+    student_type = None
+    actual_type = None
 
-        # If both specify type → compare exactly
-        if student_type and actual_type:
-            return student_type == actual_type
+    # Student answer
+    if "type 1" in student or "type i" in student:
+        student_type = 1
+    elif "type 2" in student or "type ii" in student:
+        student_type = 2
 
-    # Generic similarity fallback
-    return student in actual or actual in student
+    # Actual answer
+    if "type 1" in actual or "type i" in actual:
+        actual_type = 1
+    elif "type 2" in actual or "type ii" in actual:
+        actual_type = 2
+
+    # If both contain diabetes type info
+    if student_type is not None and actual_type is not None:
+        return student_type == actual_type
+
+    # fallback generic check
+    student_words = set(student.replace("(", "").replace(")", "").split())
+    actual_words = set(actual.replace("(", "").replace(")", "").split())
+
+    common_words = student_words.intersection(actual_words)
+
+    return len(common_words) >= 2
 
 async def evaluate_submission(patient, turns, submission):
     """
