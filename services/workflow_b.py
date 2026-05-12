@@ -5,6 +5,7 @@ import json
 from openai import OpenAI
 from prompts.evaluator_system import EVALUATOR_SYSTEM_PROMPT
 from motor.motor_asyncio import AsyncIOMotorClient
+import re
 
 client = OpenAI(
     api_key=os.getenv("GROQ_API_KEY"),
@@ -32,7 +33,45 @@ Treatment plan: {submission['treatment']}
 
 Return ONLY valid JSON.
 """
+def normalize_diagnosis(text: str) -> str:
+    text = text.lower().strip()
 
+    # remove brackets
+    text = re.sub(r"[()]", " ", text)
+
+    # standardize spaces
+    text = re.sub(r"\s+", " ", text)
+
+    return text
+
+
+def extract_diabetes_type(text: str):
+    text = text.lower()
+
+    if re.search(r"type\s*1|type\s*i\b", text):
+        return 1
+
+    if re.search(r"type\s*2|type\s*ii\b", text):
+        return 2
+
+    return None
+
+
+def is_diagnosis_correct(student_answer: str, actual_answer: str):
+    student = normalize_diagnosis(student_answer)
+    actual = normalize_diagnosis(actual_answer)
+
+    # Diabetes-specific logic
+    if "diabetes" in student and "diabetes" in actual:
+        student_type = extract_diabetes_type(student)
+        actual_type = extract_diabetes_type(actual)
+
+        # If both specify type → compare exactly
+        if student_type and actual_type:
+            return student_type == actual_type
+
+    # Generic similarity fallback
+    return student in actual or actual in student
 
 async def evaluate_submission(patient, turns, submission):
     """
@@ -57,7 +96,24 @@ async def evaluate_submission(patient, turns, submission):
         # Clean JSON (LLMs sometimes wrap it)
         clean = raw.replace("```json", "").replace("```", "").strip()
 
-        return json.loads(clean)
+        result = json.loads(clean)
+
+        student_diagnosis = submission.get("suspected_disease", "")
+        correct_diagnosis = patient.get("diagnosis", "")
+
+        diagnosis_correct = is_diagnosis_correct(
+            student_diagnosis,
+            correct_diagnosis
+        )
+
+        # Force deterministic correctness
+        result["diagnosis_result"] = {
+            "your_diagnosis": student_diagnosis,
+            "correct_diagnosis": correct_diagnosis,
+            "is_correct": diagnosis_correct
+        }
+
+        return result
 
     except Exception as e:
         return {
