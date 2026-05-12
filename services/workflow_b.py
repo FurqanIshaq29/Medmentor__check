@@ -58,26 +58,30 @@ def extract_diabetes_type(text: str):
 
 
 def is_diagnosis_correct(student_answer: str, actual_answer: str):
-    student = student_answer.lower()
-    actual = actual_answer.lower()
+    student = student_answer.lower().strip()
+    actual = actual_answer.lower().strip()
 
-    # Extract diabetes type numbers
+    # empty safety
+    if not student or not actual:
+        return False
+
+    # number-based matching
     student_has_1 = "1" in student
     student_has_2 = "2" in student
 
     actual_has_1 = "1" in actual
     actual_has_2 = "2" in actual
 
-    # If actual diagnosis is Type 1
+    # Type 1 case
     if actual_has_1:
         return student_has_1
 
-    # If actual diagnosis is Type 2
+    # Type 2 case
     if actual_has_2:
         return student_has_2
 
-    # fallback generic text match
-    return student.strip() in actual.strip() or actual.strip() in student.strip()
+    # generic exact comparison fallback
+    return student == actual
 
 async def evaluate_submission(patient, turns, submission):
     """
