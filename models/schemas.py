@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
 from bson import ObjectId
-import asyncio
 
 class GoogleAuthRequest(BaseModel):
     token: str  # Google ID token from frontend
@@ -50,7 +49,3 @@ async def evaluate_case(case_id: str, evaluation: dict):
     result = await db.evaluations.insert_one(eval_doc)
     report_id = str(result.inserted_id)
     return EvaluationResponse(report_id=report_id, total_score=evaluation["total_score"], evaluation=evaluation["evaluation"])
-
-async def init_mongo():
-    db = await get_database()
-    # Nothing else — no validation, no index creation

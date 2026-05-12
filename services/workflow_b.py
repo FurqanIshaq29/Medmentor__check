@@ -4,7 +4,7 @@ import os
 import json
 from openai import OpenAI
 from prompts.evaluator_system import EVALUATOR_SYSTEM_PROMPT
-from motor import MotorClient
+from motor.motor_asyncio import AsyncIOMotorClient
 
 client = OpenAI(
     api_key=os.getenv("GROQ_API_KEY"),
